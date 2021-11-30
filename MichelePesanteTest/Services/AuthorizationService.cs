@@ -24,12 +24,12 @@ namespace MichelePesanteTest.Services
         public User Authenticate(string login, string secret)
         {
             // Retrieving all secrets
-            List<string> secrets = securitySettings.Credentials.Split(",").ToList();
+            List<string> credentials = securitySettings.Credentials.Split(",").ToList();
 
             try
             {
                 // Retrieving secret through name
-                var secretCheck = secrets.Where(s => s.Split(":")[0] == login).Select(e => e.Split(":")[1]).First();
+                var secretCheck = credentials.Where(s => s.Split(":")[0] == login).Select(e => e.Split(":")[1]).FirstOrDefault();
 
                 if (secretCheck == secret)
                 {
@@ -40,7 +40,7 @@ namespace MichelePesanteTest.Services
                     {
                         Subject = new ClaimsIdentity(new Claim[]
                         {
-                            new Claim(ClaimTypes.Name, login),
+                            new Claim(ClaimTypes.Name, login.Split("_")[0]),
                         }),
                         Expires = DateTime.UtcNow.AddMinutes(securitySettings.ExpirationTokenMinutes),
                         SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -58,9 +58,9 @@ namespace MichelePesanteTest.Services
 
                 return null;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return null;
+                throw;
             }
         }
 

@@ -1,3 +1,4 @@
+using MichelePesanteTest.Helpers;
 using MichelePesanteTest.Interfaces;
 using MichelePesanteTest.Services;
 using MichelePesanteTest.Settings;
@@ -24,9 +25,11 @@ namespace MichelePesanteTest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Configure strongly typed settings objects
-            var securitySettingsSection = Configuration.GetSection("SecuritySettings");
+            // Configure strongly typed settings
+            var securitySettingsSection = Configuration.GetSection("Security");
             services.Configure<SecuritySettings>(securitySettingsSection);
+            var storageSettingsSection = Configuration.GetSection("Storage");
+            services.Configure<StorageSettings>(storageSettingsSection);
 
             // Configure jwt authentication
             var securitySettings = securitySettingsSection.Get<SecuritySettings>();
@@ -46,7 +49,9 @@ namespace MichelePesanteTest
             });
 
             // Configure DI for application services
+            services.AddSingleton<StorageHelper>();
             services.AddScoped<IAuthorizationService, AuthorizationService>();
+            services.AddScoped<IStorageService, StorageService>();
 
             services.AddRazorPages();
         }
@@ -61,7 +66,6 @@ namespace MichelePesanteTest
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -70,10 +74,12 @@ namespace MichelePesanteTest
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapRazorPages();
             });
         }

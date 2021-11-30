@@ -21,7 +21,7 @@ namespace MichelePesanteTest.Controllers
             if (authorizationRequest == null)
                 return BadRequest();
 
-            var authentication = authService.Authenticate($"{authorizationRequest.Name}_{authorizationRequest.ID}", authorizationRequest.Secret);
+            var authentication = authService.Authenticate($"{authorizationRequest.Name}_{authorizationRequest.Id}", authorizationRequest.Secret);
             if (authentication == null)
                 return Forbid();
             return Ok(authentication);
