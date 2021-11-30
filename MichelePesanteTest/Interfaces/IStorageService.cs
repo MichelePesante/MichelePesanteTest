@@ -8,5 +8,6 @@ namespace MichelePesanteTest.Interfaces
     {
         Task<DocumentModel> GetDocumentByID(string id);
         Task<List<DocumentModel>> GetAllDocuments();
+        Task UploadDocument(DocumentModel document);
     }
 }

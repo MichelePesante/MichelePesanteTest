@@ -27,10 +27,25 @@ namespace MichelePesanteTest.Controllers
         }
 
         [HttpGet]
+        [Route("get/{id}/processes")]
+        public async Task<List<Process>> GetDocumentProcesses(string id)
+        {
+            var documents = await storageService.GetDocumentByID(id);
+            return documents.Processes;
+        }
+
+        [HttpGet]
         [Route("get/all")]
         public async Task<List<DocumentModel>> GetAllDocuments()
         {
             return await storageService.GetAllDocuments();
+        }
+
+        [HttpPost]
+        [Route("upload")]
+        public async Task UploadDocument(DocumentModel document)
+        {
+            await storageService.UploadDocument(document);
         }
     }
 }

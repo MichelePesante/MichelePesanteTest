@@ -20,7 +20,7 @@ namespace MichelePesanteTest.Services
         {
             try
             {
-                return await storageHelper.GetDocumentByID(id);
+                return await storageHelper.GetDocumentByIDAsync(id);
             }
             catch (Exception)
             {
@@ -32,11 +32,23 @@ namespace MichelePesanteTest.Services
         {
             try
             {
-                return await storageHelper.GetAllDocuments();
+                return await storageHelper.GetAllDocumentsAsync();
             }
             catch (Exception)
             {
                 throw;
+            }
+        }
+
+        public async Task UploadDocument(DocumentModel document)
+        {
+            try
+            {
+                await storageHelper.UploadDocumentAsync(document);
+            }
+            catch (Exception) 
+            { 
+                throw; 
             }
         }
     }

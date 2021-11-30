@@ -40,18 +40,23 @@ namespace MichelePesanteTest.Helpers
             }
         }
 
-        public async Task<DocumentModel> GetDocumentByID(string id)
+        public async Task<DocumentModel> GetDocumentByIDAsync(string id)
         {
             InitializeCosmosConnection();
-            var query = new QueryDefinition("SELECT * FROM c WHERE c.id = @id").WithParameter("@id", id);
-            return (await container.GetItemQueryIterator<DocumentModel>(query).ReadNextAsync()).FirstOrDefault();
+            return await container.ReadItemAsync<DocumentModel>(id, PartitionKey.None);
         }
 
-        public async Task<List<DocumentModel>> GetAllDocuments()
+        public async Task<List<DocumentModel>> GetAllDocumentsAsync()
         {
             InitializeCosmosConnection();
             var query = new QueryDefinition("SELECT * FROM c");
             return (await container.GetItemQueryIterator<DocumentModel>(query).ReadNextAsync()).ToList();
+        }
+
+        public async Task UploadDocumentAsync(DocumentModel document)
+        {
+            InitializeCosmosConnection();
+            await container.CreateItemAsync(document);
         }
     }
 }
