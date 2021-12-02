@@ -10,7 +10,7 @@ namespace MichelePesanteTest.Models
         public string Id { get; set; }
         public string ExternalId { get; set; }
         public string Category { get; set; }
-        public string ReceptionDate { get; set; }
+        public DateTime? ReceptionDate { get; set; }
         public string Signature { get; set; }
         public List<Process> Processes { get; set; }
     }

@@ -53,6 +53,13 @@ namespace MichelePesanteTest.Helpers
             return (await container.GetItemQueryIterator<DocumentModel>(query).ReadNextAsync()).ToList();
         }
 
+        public async Task<List<DocumentModel>> GetFilteredDocuments(DateTime date)
+        {
+            InitializeCosmosConnection();
+            var query = new QueryDefinition("SELECT * FROM c WHERE c.ReceptionDate >= @date").WithParameter("@date", date);
+            return (await container.GetItemQueryIterator<DocumentModel>(query).ReadNextAsync()).ToList();
+        }
+
         public async Task UploadDocumentAsync(DocumentModel document)
         {
             InitializeCosmosConnection();

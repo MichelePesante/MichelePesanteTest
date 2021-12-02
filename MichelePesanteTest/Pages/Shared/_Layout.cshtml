@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Context
+@{
+    var hasToken = Context.HttpContext.Session.Keys.Contains("Token");
+    var navLink = hasToken ? "nav-link text-dark" : "nav-link text-gray disabled";
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -22,16 +28,19 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Authentication">Authenticate</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/GetDocumentByID">GetDocumentByID</a>
+                            <a class="@navLink" asp-area="" asp-page="/GetDocumentByID">GetDocumentByID</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/GetProcesses">GetProcesses</a>
+                            <a class="@navLink" asp-area="" asp-page="/GetProcesses">GetProcesses</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/GetAllDocuments">GetAllDocuments</a>
+                            <a class="@navLink" asp-area="" asp-page="/GetAllDocuments">GetAllDocuments</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/UploadDocument">UploadDocument</a>
+                            <a class="@navLink" asp-area="" asp-page="/GetFiltered">GetFilteredDocuments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="@navLink" asp-area="" asp-page="/UploadDocument">UploadDocument</a>
                         </li>
                     </ul>
                 </div>

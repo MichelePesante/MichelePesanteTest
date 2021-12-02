@@ -40,6 +40,18 @@ namespace MichelePesanteTest.Services
             }
         }
 
+        public async Task<List<DocumentModel>> GetFilteredDocuments(DateTime date)
+        {
+            try
+            {
+                return await storageHelper.GetFilteredDocuments(date);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public async Task UploadDocument(DocumentModel document)
         {
             try

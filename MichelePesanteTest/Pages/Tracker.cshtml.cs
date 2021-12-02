@@ -3,6 +3,8 @@ using MichelePesanteTest.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
+using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 namespace MichelePesanteTest.Pages
@@ -16,6 +18,9 @@ namespace MichelePesanteTest.Pages
         public string DocumentGet { get; set; }
         public string DocumentPost { get; set; }
         public string Documents { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        public DateTime? TargetDate { get; set; }
 
         public Tracker(IStorageService _storageService)
         {
@@ -38,6 +43,12 @@ namespace MichelePesanteTest.Pages
         {
             Documents = null;
             Documents = JsonConvert.SerializeObject(await storageService.GetAllDocuments(), Formatting.Indented);
+        }
+
+        public async Task OnGetFilteredAsync()
+        {
+            Documents = null;
+            Documents = JsonConvert.SerializeObject(await storageService.GetFilteredDocuments(TargetDate.Value), Formatting.Indented);
         }
 
         public async Task OnPostUploadAsync()

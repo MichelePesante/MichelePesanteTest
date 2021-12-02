@@ -2,6 +2,7 @@
 using MichelePesanteTest.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -39,6 +40,13 @@ namespace MichelePesanteTest.Controllers
         public async Task<List<DocumentModel>> GetAllDocuments()
         {
             return await storageService.GetAllDocuments();
+        }
+
+        [HttpGet]
+        [Route("get/filtered/{date}")]
+        public async Task<List<DocumentModel>> GetFilteredDocuments(DateTime date)
+        {
+            return await storageService.GetFilteredDocuments(date);
         }
 
         [HttpPost]

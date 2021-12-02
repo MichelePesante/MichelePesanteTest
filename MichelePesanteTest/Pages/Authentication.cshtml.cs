@@ -1,4 +1,5 @@
 using MichelePesanteTest.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -21,7 +22,15 @@ namespace MichelePesanteTest.Pages
         public void OnPost()
         {
             var user = auth.Authenticate(Name + "_" + ID, Secret);
-            Result = user != null ? "Welcome " + user.Name + "! Let's try some APIs!" : "Name, ID or Secret not valid!";
+            if (user != null)
+            {
+                Result = $"Welcome {user.Name}! Let's try some APIs!";
+                HttpContext.Session.SetString("Token", user?.Token);
+            }
+            else
+            {
+                Result = "Name, ID or Secret not valid!";
+            }
         }
     }
 }

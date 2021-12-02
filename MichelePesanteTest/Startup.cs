@@ -5,6 +5,7 @@ using MichelePesanteTest.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -49,10 +50,12 @@ namespace MichelePesanteTest
             });
 
             // Configure DI for application services
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<StorageHelper>();
             services.AddScoped<IAuthorizationService, AuthorizationService>();
             services.AddScoped<IStorageService, StorageService>();
 
+            services.AddSession();
             services.AddRazorPages();
         }
 
@@ -71,6 +74,7 @@ namespace MichelePesanteTest
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseRouting();
 
