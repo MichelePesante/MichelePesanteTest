@@ -46,24 +46,41 @@ namespace MichelePesanteTest.Helpers
             return await container.ReadItemAsync<DocumentModel>(id, PartitionKey.None);
         }
 
-        public async Task<List<DocumentModel>> GetAllDocumentsAsync()
+        public async Task<DocumentResponseModel> GetAllDocumentsAsync()
         {
             InitializeCosmosConnection();
             var query = new QueryDefinition("SELECT * FROM c");
-            return (await container.GetItemQueryIterator<DocumentModel>(query).ReadNextAsync()).ToList();
+            var docs = (await container.GetItemQueryIterator<DocumentModel>(query).ReadNextAsync()).ToList();
+            return GetDocumentResponseModel(docs);
         }
 
-        public async Task<List<DocumentModel>> GetFilteredDocuments(DateTime date)
+        public async Task<DocumentResponseModel> GetFilteredDocuments(DateTime date)
         {
             InitializeCosmosConnection();
             var query = new QueryDefinition("SELECT * FROM c WHERE c.ReceptionDate >= @date").WithParameter("@date", date);
-            return (await container.GetItemQueryIterator<DocumentModel>(query).ReadNextAsync()).ToList();
+            var docs = (await container.GetItemQueryIterator<DocumentModel>(query).ReadNextAsync()).ToList();
+            return GetDocumentResponseModel(docs);
         }
 
         public async Task UploadDocumentAsync(DocumentModel document)
         {
             InitializeCosmosConnection();
             await container.CreateItemAsync(document);
+        }
+
+        private static DocumentResponseModel GetDocumentResponseModel(List<DocumentModel> docs)
+        {
+
+            var categories = docs.Select(x => x.Category).Distinct().ToList();
+            var response = new DocumentResponseModel
+            {
+                DocumentsNumber = docs.Count,
+                CategoriesNumber = categories.Count,
+                Categories = categories,
+                Documents = docs
+            };
+
+            return response;
         }
     }
 }

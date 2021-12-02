@@ -8,8 +8,8 @@ namespace MichelePesanteTest.Interfaces
     public interface IStorageService
     {
         Task<DocumentModel> GetDocumentByID(string id);
-        Task<List<DocumentModel>> GetAllDocuments();
-        Task<List<DocumentModel>> GetFilteredDocuments(DateTime date);
+        Task<DocumentResponseModel> GetAllDocuments();
+        Task<DocumentResponseModel> GetFilteredDocuments(DateTime date);
         Task UploadDocument(DocumentModel document);
     }
 }

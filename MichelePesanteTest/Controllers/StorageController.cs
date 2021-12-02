@@ -37,14 +37,14 @@ namespace MichelePesanteTest.Controllers
 
         [HttpGet]
         [Route("get/all")]
-        public async Task<List<DocumentModel>> GetAllDocuments()
+        public async Task<DocumentResponseModel> GetAllDocuments()
         {
             return await storageService.GetAllDocuments();
         }
 
         [HttpGet]
         [Route("get/filtered/{date}")]
-        public async Task<List<DocumentModel>> GetFilteredDocuments(DateTime date)
+        public async Task<DocumentResponseModel> GetFilteredDocuments(DateTime date)
         {
             return await storageService.GetFilteredDocuments(date);
         }

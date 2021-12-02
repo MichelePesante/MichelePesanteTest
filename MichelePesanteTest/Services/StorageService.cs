@@ -28,7 +28,7 @@ namespace MichelePesanteTest.Services
             }
         }
 
-        public async Task<List<DocumentModel>> GetAllDocuments()
+        public async Task<DocumentResponseModel> GetAllDocuments()
         {
             try
             {
@@ -40,7 +40,7 @@ namespace MichelePesanteTest.Services
             }
         }
 
-        public async Task<List<DocumentModel>> GetFilteredDocuments(DateTime date)
+        public async Task<DocumentResponseModel> GetFilteredDocuments(DateTime date)
         {
             try
             {

@@ -8,9 +8,11 @@ namespace MichelePesanteTest.Models
     {
         [JsonProperty("id")]
         public string Id { get; set; }
-        public string ExternalId { get; set; }
+        public string Name { get; set; }
         public string Category { get; set; }
-        public DateTime? ReceptionDate { get; set; }
+        public string ProtocolNumber { get; set; }
+        public DateTime ReceptionDate { get; set; }
+        public string ExternalId { get; set; }
         public string Signature { get; set; }
         public List<Process> Processes { get; set; }
     }
