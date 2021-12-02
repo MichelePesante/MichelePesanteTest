@@ -29,25 +29,23 @@ namespace MichelePesanteTest.Pages
 
         public async Task OnGetDocumentAsync()
         {
-            var doc = await GetDocument();
+            var doc = await storageService.GetDocumentByID(ID);
             DocumentGet = JsonConvert.SerializeObject(doc, Formatting.Indented);
         }
 
         public async Task OnGetProcessesAsync()
         {
-            var doc = await GetDocument();
+            var doc = await storageService.GetDocumentByID(ID);
             Processes = JsonConvert.SerializeObject(doc.Processes, Formatting.Indented);
         }
 
         public async Task OnGetDocumentsAsync()
         {
-            Documents = null;
             Documents = JsonConvert.SerializeObject(await storageService.GetAllDocuments(), Formatting.Indented);
         }
 
         public async Task OnGetFilteredAsync()
         {
-            Documents = null;
             Documents = JsonConvert.SerializeObject(await storageService.GetFilteredDocuments(TargetDate.Value), Formatting.Indented);
         }
 
@@ -55,12 +53,6 @@ namespace MichelePesanteTest.Pages
         {
             var doc = JsonConvert.DeserializeObject<DocumentModel>(DocumentPost);
             await storageService.UploadDocument(doc);
-        }
-
-        private async Task<DocumentModel> GetDocument()
-        {
-            DocumentGet = null;
-            return await storageService.GetDocumentByID(ID);
         }
     }
 }
