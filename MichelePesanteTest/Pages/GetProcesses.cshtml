@@ -1,22 +1,22 @@
-﻿@page
+﻿@page "{handler?}"
 @model MichelePesanteTest.Pages.Tracker
 @{
     ViewData["Title"] = "APIs";
 }
 
-<form method="post">
+<form method="get">
     <div class="form-group row">
         <div class="col-md-4">
-            <label>JSON Document</label>
-            <input class="form-control" required type="text" asp-for="DocumentPost">
+            <label>ID</label>
+            <input class="form-control" required type="text" asp-for="ID">
         </div>
     </div>
-    <button type="submit" asp-page-handler="upload">Submit</button>
+    <button type="submit" asp-page-handler="processes">Submit</button>
     <div class="form-group row">
         <div class="col">
             <br>
             <label>Response</label>
-            <textarea class="form-control" readonly rows="14"></textarea>
+            <textarea class="form-control" readonly rows="14">@Model.Processes</textarea>
         </div>
     </div>
 </form>

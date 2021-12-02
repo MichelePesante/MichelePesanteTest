@@ -4,7 +4,7 @@ namespace MichelePesanteTest.Interfaces
 {
     public interface IAuthorizationService
     {
-        User Authenticate(string name, string secret);
+        User Authenticate(string login, string secret);
         string GetUser(string encryptedToken);
     }
 }
