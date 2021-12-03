@@ -29,20 +29,14 @@ namespace MichelePesanteTest.Pages
 
         public async Task OnGetDocumentAsync()
         {
-            if (!string.IsNullOrWhiteSpace(ID))
-            {
-                var doc = await storageService.GetDocumentByID(ID);
-                DocumentGet = JsonConvert.SerializeObject(doc, Formatting.Indented);
-            }
+            var doc = await storageService.GetDocumentByID(ID);
+            DocumentGet = JsonConvert.SerializeObject(doc, Formatting.Indented);
         }
 
         public async Task OnGetProcessesAsync()
         {
-            if (!string.IsNullOrWhiteSpace(ID))
-            {
-                var doc = await storageService.GetDocumentByID(ID);
-                Processes = JsonConvert.SerializeObject(doc.Processes, Formatting.Indented);
-            }
+            var doc = await storageService.GetDocumentByID(ID);
+            Processes = JsonConvert.SerializeObject(doc.Processes, Formatting.Indented);
         }
 
         public async Task OnGetDocumentsAsync()
@@ -52,19 +46,13 @@ namespace MichelePesanteTest.Pages
 
         public async Task OnGetFilteredAsync()
         {
-            if (TargetDate != null)
-            {
-                Documents = JsonConvert.SerializeObject(await storageService.GetFilteredDocuments(TargetDate.Value), Formatting.Indented);
-            }
+            Documents = JsonConvert.SerializeObject(await storageService.GetFilteredDocuments(TargetDate.Value), Formatting.Indented);
         }
 
         public async Task OnPostUploadAsync()
         {
-            if (!string.IsNullOrWhiteSpace(DocumentPost))
-            {
-                var doc = JsonConvert.DeserializeObject<DocumentModel>(DocumentPost);
-                await storageService.UploadDocument(doc);
-            }
+            var doc = JsonConvert.DeserializeObject<DocumentModel>(DocumentPost);
+            await storageService.UploadDocument(doc);
         }
     }
 }

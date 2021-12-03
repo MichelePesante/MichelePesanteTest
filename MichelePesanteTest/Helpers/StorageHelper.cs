@@ -75,10 +75,16 @@ namespace MichelePesanteTest.Helpers
             var response = new DocumentResponseModel
             {
                 DocumentsNumber = docs.Count,
-                CategoriesNumber = categories.Count,
-                Categories = categories,
                 Documents = docs
             };
+
+            Dictionary<string, int> dict = new();
+            foreach (var category in categories)
+            {
+                var query = docs.Where(x => x.Category == category).Select(x => x.Category);
+                dict.Add(query.FirstOrDefault(), query.Count());
+            }
+            response.CategoriesInfo = dict;
 
             return response;
         }
