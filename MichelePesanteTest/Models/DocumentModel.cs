@@ -10,7 +10,7 @@ namespace MichelePesanteTest.Models
         public string Id { get; set; }
         public string Name { get; set; }
         public string Category { get; set; }
-        public string ProtocolNumber { get; set; }
+        public int ProtocolNumber { get; set; }
         public DateTime ReceptionDate { get; set; }
         public string ExternalId { get; set; }
         public string Signature { get; set; }
