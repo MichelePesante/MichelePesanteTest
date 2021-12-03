@@ -8,7 +8,7 @@
     <div class="form-group row">
         <div class="col">
             <label>Select a date</label>
-            <input type="date" class="form-control" asp-for="@Model.TargetDate" />
+            <input type="date" class="form-control" required asp-for="@Model.TargetDate" />
         </div>
     </div>
     <button type="submit" asp-page-handler="filtered">Submit</button>
