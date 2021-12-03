@@ -12,6 +12,6 @@ As I wrote above, from now on you need to call the APIs with the Bearer Token gi
 
 https://michelepesantetest.azurewebsites.net/api/storage/get/{id} ------------->  Retrieve the document with the given id
 https://michelepesantetest.azurewebsites.net/api/storage/get/{id}/processes --->  Retrieve the processes of the document with the given id
-https://michelepesantetest.azurewebsites.net/api/storage/get/all -------------->  Retrieve all documents
-https://michelepesantetest.azurewebsites.net/api/storage/get/filtered/{date} -->  Retrieve the document created after the given date
+https://michelepesantetest.azurewebsites.net/api/storage/get/all -------------->  Retrieve all documents with other info
+https://michelepesantetest.azurewebsites.net/api/storage/get/filtered/{date} -->  Retrieve info and documents created after the given date
 https://michelepesantetest.azurewebsites.net/api/storage/upload --------------->  Upload a document with correct JSON format
